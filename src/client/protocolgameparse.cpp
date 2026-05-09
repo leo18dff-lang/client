@@ -5795,6 +5795,10 @@ void ProtocolGame::parseCyclopediaCharacterInfo(const InputMessagePtr& msg)
             }
             break;
         }
+        case Otc::CYCLOPEDIA_CHARACTERINFO_WHEEL:
+        {
+            break;
+        }
         case Otc::CYCLOPEDIA_CHARACTERINFO_OFFENCESTATS:
         {
             CyclopediaCharacterOffenceStats data;
@@ -6729,7 +6733,6 @@ MarketOffer ProtocolGame::readMarketOffer(const InputMessagePtr& msg, const uint
 void ProtocolGame::parseMarketBrowse(const InputMessagePtr& msg)
 {
     uint16_t var = 0;
-    uint8_t itemTier = 0;
     if (g_game.getClientVersion() >= 1281) {
         var = msg->getU8();
         if (var == 3) {
@@ -6738,7 +6741,7 @@ void ProtocolGame::parseMarketBrowse(const InputMessagePtr& msg)
             if (thing) {
                 const uint16_t classification = thing->getClassification();
                 if (classification > 0) {
-                    itemTier = msg->getU8();
+                    msg->getU8(); // item tier
                 }
             }
         }
